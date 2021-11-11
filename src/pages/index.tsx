@@ -1,9 +1,15 @@
+/* eslint-disable no-alert */
 import { FormEvent, useState } from 'react';
 import useSWR from 'swr';
 
+interface Transporter {
+  id: number;
+  name: string;
+}
+
 const Index = () => {
   const apiUrl = `http://192.168.1.4:3333/api/v1/transporter`;
-  const fileUploadUrl = `http://192.168.1.4:3333/api/v1/transporter`;
+  // const fileUploadUrl = `http://192.168.1.4:3333/api/v1/transporter`;
 
   const fetcher = (url: RequestInfo) => fetch(url).then((res) => res.json());
 
@@ -21,8 +27,6 @@ const Index = () => {
     };
 
     const transporterId = parseInt(transporter.value, 10);
-
-    console.log(transporterId, csv);
 
     const body = new FormData();
 
@@ -71,7 +75,7 @@ const Index = () => {
                   name='transporter'
                   className='block w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline'
                 >
-                  {transporters.map((transporter: any) => (
+                  {transporters.map((transporter: Transporter) => (
                     <option key={transporter.id} value={transporter.id}>
                       {transporter.name.toUpperCase()}
                     </option>
