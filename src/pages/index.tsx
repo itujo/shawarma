@@ -8,7 +8,7 @@ interface Transporter {
 }
 
 const Index = () => {
-  const apiUrl = `http://192.168.1.4:3333/api/v1/transporter`;
+  const apiUrl = `https://api.gruposplog.com.br/api/v1/transporter`;
   // const fileUploadUrl = `http://192.168.1.4:3333/api/v1/transporter`;
 
   const fetcher = (url: RequestInfo) => fetch(url).then((res) => res.json());
@@ -37,7 +37,7 @@ const Index = () => {
     body.append('file', csv);
 
     const response = await fetch(
-      `http://localhost:3333/api/v1/movement/import/${transporterId}`,
+      `https://api.gruposplog.com.br/api/v1/movement/import/${transporterId}`,
       {
         method: 'POST',
         body,
