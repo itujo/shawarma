@@ -45,9 +45,7 @@ const Index = () => {
     );
 
     const res = await response.json();
-    if (res.status === 'ok') {
-      alert(res.message);
-    }
+    alert(res.message);
   };
 
   if (error) return <div>failed to load</div>;
