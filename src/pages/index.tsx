@@ -8,12 +8,14 @@ interface Transporter {
 }
 
 const Index = () => {
-  const apiUrl = `https://api.gruposplog.com.br/api/v1/transporter`;
-  // const fileUploadUrl = `http://192.168.1.4:3333/api/v1/transporter`;
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   const fetcher = (url: RequestInfo) => fetch(url).then((res) => res.json());
 
-  const { data: transporters, error } = useSWR(apiUrl, fetcher);
+  const { data: transporters, error } = useSWR(
+    `${apiUrl}/transporter`,
+    fetcher
+  );
 
   const [csv, setCsv] = useState<File | null>(null);
 
@@ -36,13 +38,10 @@ const Index = () => {
     }
     body.append('file', csv);
 
-    const response = await fetch(
-      `https://api.gruposplog.com.br/api/v1/movement/import/${transporterId}`,
-      {
-        method: 'POST',
-        body,
-      }
-    );
+    const response = await fetch(`${apiUrl}/movement/import/${transporterId}`, {
+      method: 'POST',
+      body,
+    });
 
     const res = await response.json();
     alert(res.message);
